@@ -130,12 +130,13 @@ while True:
 	idxs = cv2.dnn.NMSBoxes(boxes, confidences, args["confidence"],
 		args["threshold"])
 
+	temp_dict = {}
 	# ensure at least one detection exists
 	if len(idxs) > 0:
 		
 		#distancei=[]
 		# loop over the indexes we are keeping
-		temp_dict = {}
+		
 		for i in idxs.flatten():
 			# extract the bounding box coordinates
 			(x, y) = (boxes[i][0], boxes[i][1])
@@ -158,9 +159,12 @@ while True:
 	if cv2.waitKey(10) & 0xFF == ord('q'):# Press 'ESC' for exiting video
 		break
 	temp_dict = {k: v for k, v in sorted(temp_dict.items(), key=lambda item: item[1])}
-	speekObject = temp_dict.popitem()
-	engine.say(speekObject[0])
-	engine.runAndWait()
+	try:
+		speekObject = temp_dict.popitem()
+		engine.say(speekObject[0])
+		engine.runAndWait()
+	except KeyError:
+		pass
         
 
 # release the file pointers
