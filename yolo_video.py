@@ -5,7 +5,8 @@ import imutils
 import time
 import cv2
 import os
-import face_recognition
+import pyttsx3
+engine = pyttsx3.init()
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -134,13 +135,16 @@ while True:
 		
 		#distancei=[]
 		# loop over the indexes we are keeping
+		temp_dict = {}
 		for i in idxs.flatten():
 			# extract the bounding box coordinates
 			(x, y) = (boxes[i][0], boxes[i][1])
 			(w, h) = (boxes[i][2], boxes[i][3])
 
 			distancei = (2*3.14 * 180)/(w+h*360)*1000 + 3
-			print(distancei)
+			print(LABELS[classIDs[i]],distancei)
+			temp_dict[LABELS[classIDs[i]]] = distancei
+
 
 			# draw a bounding box rectangle and label on the frame
 			color = [int(c) for c in COLORS[classIDs[i]]]
@@ -152,7 +156,11 @@ while True:
 
 	cv2.imshow('outputWindows',frame)
 	if cv2.waitKey(10) & 0xFF == ord('q'):# Press 'ESC' for exiting video
-		break 
+		break
+	temp_dict = {k: v for k, v in sorted(temp_dict.items(), key=lambda item: item[1])}
+	speekObject = temp_dict.popitem()
+	engine.say(speekObject[0])
+	engine.runAndWait()
         
 
 # release the file pointers
