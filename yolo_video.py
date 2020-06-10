@@ -160,8 +160,9 @@ while True:
 		break
 	temp_dict = {k: v for k, v in sorted(temp_dict.items(), key=lambda item: item[1])}
 	try:
-		speekObject = temp_dict.popitem()
-		str = speekObject[0] + " in" +round(speekObject[1],2) + " distance"
+		keyValue = next(iter(temp_dict))
+		# FOR LAST OBJECT -> speekObject = temp_dict.popitem()
+		str = keyValue + " in" +str(round(temp_dict[keyValue],2)) + " distance"
 		engine.say(str)
 		engine.runAndWait()
 	except KeyError:
