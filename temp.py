@@ -159,14 +159,14 @@ while True:
 	if cv2.waitKey(10) & 0xFF == ord('q'):# Press 'ESC' for exiting video
 		break
 	temp_dict = {k: v for k, v in sorted(temp_dict.items(), key=lambda item: item[1])}
-	try:
-		tempstr = ""
+    try:
+        tempstr = ""
         for i in temp_dict:
-            tempstr = " " = i
-		# FOR LAST OBJECT -> speekObject = temp_dict.popitem()
-		#stri = keyValue + " in" +str(round(temp_dict[keyValue],2)) + " distance"
-		engine.say(tempstr)
-		engine.runAndWait()
+            tempstr = " " + i
+        # FOR LAST OBJECT -> speekObject = temp_dict.popitem()
+        #stri = keyValue + " in" +str(round(temp_dict[keyValue],2)) + " distance"
+        engine.say(tempstr)
+        engine.runAndWait()
 	except KeyError:
 		pass
 	except Exception:
