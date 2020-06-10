@@ -162,10 +162,12 @@ while True:
 	try:
 		keyValue = next(iter(temp_dict))
 		# FOR LAST OBJECT -> speekObject = temp_dict.popitem()
-		str = keyValue + " in" +str(round(temp_dict[keyValue],2)) + " distance"
-		engine.say(str)
+		stri = keyValue + " in" +str(round(temp_dict[keyValue],2)) + " distance"
+		engine.say(stri)
 		engine.runAndWait()
 	except KeyError:
+		pass
+	except Exception:
 		pass
         
 
